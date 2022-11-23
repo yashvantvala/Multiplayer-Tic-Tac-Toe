@@ -1,0 +1,152 @@
+body {
+  margin: 0;
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
+    'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
+    sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+code {
+  font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
+    monospace;
+}
+
+.container{
+  margin-top: 40px;
+}
+
+.board-container{
+  display: flex;
+  justify-content: space-around;
+}
+
+.wrapper{
+  display:flex;
+  width: 100%;
+  justify-content: center;
+}
+
+
+.wrapper div{
+  border: 1px solid black;
+  height:100px;
+  width:100px;
+  cursor: pointer;
+  display:flex;
+  justify-content: center;
+  align-items: center;
+  border-right: none;
+  border-top: none;
+}
+
+.wrapper div:nth-child(1){
+  border-left: none;
+}
+
+.border-bottom-none{
+  border-bottom: none !important;
+}
+
+.chat{
+  height: 220px;
+  width: 300px;
+  max-height: 220px;
+  /* border:1px solid; */
+  margin-top: 100px;
+}
+.chat .chat-body{
+  height: 180px;
+  max-height: 180px;
+  border:1px solid;
+  overflow-y: scroll;
+}
+
+.chat-message{
+  display:flex;
+}
+.chat-message span{
+  font-size:12px;
+  display: flex;
+  align-items: end;
+}
+
+.pull-left{
+  justify-content: start;
+}
+.pull-right{
+  justify-content: end;
+}
+
+.pull-left p{
+  background-color: cornflowerblue;
+}
+.pull-right p{
+  background-color: #6b9ad0;
+}
+
+.chat-message p{
+  margin: 5px;
+  padding: 3px 18px;
+  border-radius: 20px;
+  margin: 5px;
+  color: #fff;
+}
+.chat-message div{
+  display: flex;
+  align-items: flex-end;
+}
+.chat-footer {
+  height: 40px;
+  border: 1px solid #263238;
+  border-top: none;
+  display: flex;
+}
+
+.chat-footer input {
+  height: 100%;
+  flex: 85%;
+  border: 0;
+  padding: 0 0.5em;
+  font-size: 1em;
+  border-right: 1px dotted #607d8b;
+
+  outline: none;
+  font-family: "Open Sans", sans-serif;
+}
+
+.chat-footer button {
+  cursor: pointer;
+  background: #6363c2;
+  color: #fff;
+  border: none;
+  width: 50px;
+  margin: 5px;
+  border-radius: 5px;
+}
+
+.join-room{
+  margin-top: 100px;
+}
+.join-room input{
+  padding: 10px;
+  outline: none;
+}
+.join-room button{
+  padding: 8px;
+  cursor: pointer;
+  background: #6363c2;
+  color: #fff;
+  border: none;
+}
+.join-room input, .join-room button{
+  margin: 5px;
+  width: 200px;
+  border-radius: 5px;
+  border: 1px solid;
+}
+
+
+.player-turn{
+  margin: 20px;
+}
