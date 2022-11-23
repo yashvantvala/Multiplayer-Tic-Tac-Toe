@@ -19,64 +19,102 @@ let playerInfo = {
 
 let winningPlayer = '';
 
+const winningPattern = [
+  [0, 1, 2],
+  [3, 4, 5],
+  [6, 7, 8],
+  [0, 3, 6],
+  [1, 4, 7],
+  [2, 5, 8],
+  [0, 4, 8],
+  [2, 4, 6]
+];
+
+// const checkWinner = (socket, room) =>{
+//   if (
+//     BOARD[0] === BOARD[1] &&
+//     BOARD[0] === BOARD[2] &&
+//     BOARD[0] !== 'empty'
+//   ) {
+//     winningPlayer = playerInfo.turn;
+//     io.in(room).emit("game_over",{winningPlayer});
+//   } else if (
+//     BOARD[3] !== 'empty' &&
+//     BOARD[3] === BOARD[4] &&
+//     BOARD[4] === BOARD[5]
+//   ) {
+//     winningPlayer = playerInfo.turn;
+//     io.in(room).emit("game_over",{winningPlayer});
+//   } else if (
+//     BOARD[6] !== 'empty' &&
+//     BOARD[6] === BOARD[7] &&
+//     BOARD[7] === BOARD[8]
+//   ) {
+//     winningPlayer = playerInfo.turn;
+//     io.in(room).emit("game_over",{winningPlayer});
+//   } else if (
+//     BOARD[0] !== 'empty' &&
+//     BOARD[0] === BOARD[3] &&
+//     BOARD[3] === BOARD[6]
+//   ) {
+//     winningPlayer = playerInfo.turn;
+//     io.in(room).emit("game_over",{winningPlayer});
+//   } else if (
+//     BOARD[1] !== 'empty' &&
+//     BOARD[1] === BOARD[4] &&
+//     BOARD[4] === BOARD[7]
+//   ) {
+//     winningPlayer = playerInfo.turn;
+//     io.in(room).emit("game_over",{winningPlayer});
+//   } else if (
+//     BOARD[2] !== 'empty' &&
+//     BOARD[2] === BOARD[5] &&
+//     BOARD[5] === BOARD[8]
+//   ) {
+//     winningPlayer = playerInfo.turn;
+//     io.in(room).emit("game_over",{winningPlayer});
+//   } else if (
+//     BOARD[0] !== 'empty' &&
+//     BOARD[0] === BOARD[4] &&
+//     BOARD[4] === BOARD[8]
+//   ) {
+//     winningPlayer = playerInfo.turn;
+//     io.in(room).emit("game_over",{winningPlayer});
+//   } else if (
+//     BOARD[2] !== 'empty' &&
+//     BOARD[2] === BOARD[4] &&
+//     BOARD[4] === BOARD[6]
+//   ) {
+//     winningPlayer = playerInfo.turn;
+//     io.in(room).emit("game_over",{winningPlayer});
+//   }else if(BOARD.every((val)=>val !=='empty')){
+//     winningPlayer = 'Tie';
+//     io.in(room).emit("game_over",{winningPlayer});
+//   }else{
+//     playerInfo.turn = playerInfo.player1 === playerInfo.turn ? playerInfo.player2 : playerInfo.player1;
+//   }
+// }
+
+//New Winning Logic
+
 const checkWinner = (socket, room) =>{
-  if (
-    BOARD[0] === BOARD[1] &&
-    BOARD[0] === BOARD[2] &&
-    BOARD[0] !== 'empty'
-  ) {
-    winningPlayer = playerInfo.turn;
-    io.in(room).emit("game_over",{winningPlayer});
-  } else if (
-    BOARD[3] !== 'empty' &&
-    BOARD[3] === BOARD[4] &&
-    BOARD[4] === BOARD[5]
-  ) {
-    winningPlayer = playerInfo.turn;
-    io.in(room).emit("game_over",{winningPlayer});
-  } else if (
-    BOARD[6] !== 'empty' &&
-    BOARD[6] === BOARD[7] &&
-    BOARD[7] === BOARD[8]
-  ) {
-    winningPlayer = playerInfo.turn;
-    io.in(room).emit("game_over",{winningPlayer});
-  } else if (
-    BOARD[0] !== 'empty' &&
-    BOARD[0] === BOARD[3] &&
-    BOARD[3] === BOARD[6]
-  ) {
-    winningPlayer = playerInfo.turn;
-    io.in(room).emit("game_over",{winningPlayer});
-  } else if (
-    BOARD[1] !== 'empty' &&
-    BOARD[1] === BOARD[4] &&
-    BOARD[4] === BOARD[7]
-  ) {
-    winningPlayer = playerInfo.turn;
-    io.in(room).emit("game_over",{winningPlayer});
-  } else if (
-    BOARD[2] !== 'empty' &&
-    BOARD[2] === BOARD[5] &&
-    BOARD[5] === BOARD[8]
-  ) {
-    winningPlayer = playerInfo.turn;
-    io.in(room).emit("game_over",{winningPlayer});
-  } else if (
-    BOARD[0] !== 'empty' &&
-    BOARD[0] === BOARD[4] &&
-    BOARD[4] === BOARD[8]
-  ) {
-    winningPlayer = playerInfo.turn;
-    io.in(room).emit("game_over",{winningPlayer});
-  } else if (
-    BOARD[2] !== 'empty' &&
-    BOARD[2] === BOARD[4] &&
-    BOARD[4] === BOARD[6]
-  ) {
-    winningPlayer = playerInfo.turn;
-    io.in(room).emit("game_over",{winningPlayer});
-  }else if(BOARD.every((val)=>val !=='empty')){
+  for(i=0;i<winningPattern.length;i++){
+    const winningMatch = winningPattern[i];
+    const a = BOARD[winningMatch[0]];
+    const b = BOARD[winningMatch[1]];
+    const c = BOARD[winningMatch[2]];
+    console.log(a,b,c)
+    if(a==='empty' || b === 'empty' || c === 'empty'){
+      //can continue
+      continue;
+    }
+    if(a==b && a==c){
+      winningPlayer = playerInfo.turn;
+      io.in(room).emit("game_over",{winningPlayer});
+      return;
+    }
+  }
+  if(BOARD.every((val)=>val !=='empty')){
     winningPlayer = 'Tie';
     io.in(room).emit("game_over",{winningPlayer});
   }else{
